@@ -18,7 +18,7 @@ app = FastAPI(
 origins = [
     "http://localhost:8080",
     "http://localhost:3000",
-    "https://your-frontend-app.vercel.app",  # Замените на ваш домен
+    "https://anime-site-nurs.vercel.app",  # Ваш реальный домен фронтенда
 ]
 
 app.add_middleware(
