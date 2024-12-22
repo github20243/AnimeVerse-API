@@ -4,13 +4,26 @@ from pydantic import BaseModel
 from typing import List, Optional
 from datetime import datetime
 from anime_data import anime_list, AnimeBase
+import os
 
-app = FastAPI()
+app = FastAPI(
+    title="AniCore API",
+    description="API для аниме сайта с поддержкой комментариев и видео",
+    version="1.0.0",
+    docs_url="/docs",
+    redoc_url="/redoc"
+)
 
 # Настройка CORS
+origins = [
+    "http://localhost:8080",
+    "http://localhost:3000",
+    "https://your-frontend-app.vercel.app",  # Замените на ваш домен
+]
+
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["http://localhost:8080"],
+    allow_origins=origins,
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],

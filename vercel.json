@@ -1,0 +1,30 @@
+{
+    "version": 2,
+    "builds": [
+        {
+            "src": "main.py",
+            "use": "@vercel/python"
+        }
+    ],
+    "routes": [
+        {
+            "src": "/docs",
+            "dest": "main.py"
+        },
+        {
+            "src": "/openapi.json",
+            "dest": "main.py"
+        },
+        {
+            "src": "/redoc",
+            "dest": "main.py"
+        },
+        {
+            "src": "/api/(.*)",
+            "dest": "main.py"
+        }
+    ],
+    "env": {
+        "APP_URL": "https://your-app-name.vercel.app"
+    }
+}
