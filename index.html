@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Коллекция Аниме</title>
+    <link rel="stylesheet" href="static/css/styles.css">
+</head>
+<body>
+    <h1>Коллекция Аниме</h1>
+    
+    <div class="search-section">
+        <input 
+            type="text" 
+            id="searchInput" 
+            placeholder="Поиск аниме по названию или описанию..."
+            oninput="debounceSearch()"
+        >
+        <div class="filters">
+            <select id="genreFilter" onchange="debounceSearch()">
+                <option value="">Все жанры</option>
+            </select>
+            <select id="typeFilter" onchange="debounceSearch()">
+                <option value="">Все типы</option>
+            </select>
+            <select id="studioFilter" onchange="debounceSearch()">
+                <option value="">Все студии</option>
+            </select>
+            <select id="seasonFilter" onchange="debounceSearch()">
+                <option value="">Все сезоны</option>
+            </select>
+            <select id="statusFilter" onchange="debounceSearch()">
+                <option value="">Любой статус</option>
+                <option value="Онгоинг">Онгоинг</option>
+                <option value="Завершён">Завершён</option>
+                <option value="Анонс">Анонс</option>
+            </select>
+            <select id="ageRatingFilter" onchange="debounceSearch()">
+                <option value="">Возрастной рейтинг</option>
+            </select>
+        </div>
+        <div class="sort-section">
+            <select id="sortBy" onchange="debounceSearch()">
+                <option value="">Сортировать по...</option>
+                <option value="rating">Рейтингу (по убыванию)</option>
+                <option value="title">Названию (А-Я)</option>
+                <option value="release_date">Дате выхода (сначала новые)</option>
+                <option value="views">Просмотрам (по убыванию)</option>
+                <option value="popularity_rank">Популярности</option>
+            </select>
+        </div>
+    </div>
+
+    <div class="anime-grid" id="animeGrid">
+        <div class="loading">Загрузка коллекции аниме...</div>
+    </div>
+
+    <!-- Модальное окно для детальной информации -->
+    <div id="animeModal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <div class="modal-body">
+                <div class="modal-image-container">
+                    <img id="modalImage" src="" alt="">
+                </div>
+                <div class="modal-info">
+                    <h2 id="modalTitle"></h2>
+                    <h3 id="modalJapaneseTitle"></h3>
+                    <div class="modal-details">
+                        <p id="modalRating"></p>
+                        <p id="modalEpisodes"></p>
+                        <p id="modalStatus"></p>
+                        <p id="modalStudio"></p>
+                        <p id="modalSeason"></p>
+                        <p id="modalViews"></p>
+                        <p id="modalType"></p>
+                        <p id="modalAgeRating"></p>
+                    </div>
+                    <div id="modalGenres" class="modal-genres"></div>
+                    <p id="modalDescription" class="modal-description"></p>
+                    
+                    <!-- Секция комментариев -->
+                    <div class="comments-section">
+                        <h3>Комментарии и оценки</h3>
+                        <div class="add-comment">
+                            <input type="text" id="commentUserName" placeholder="Ваше имя">
+                            <textarea id="commentText" placeholder="Ваш комментарий"></textarea>
+                            <div class="rating-input">
+                                <span>Ваша оценка:</span>
+                                <select id="commentRating">
+                                    <option value="10">10 - Шедевр</option>
+                                    <option value="9">9 - Отлично</option>
+                                    <option value="8">8 - Очень хорошо</option>
+                                    <option value="7">7 - Хорошо</option>
+                                    <option value="6">6 - Неплохо</option>
+                                    <option value="5">5 - Средне</option>
+                                    <option value="4">4 - Так себе</option>
+                                    <option value="3">3 - Плохо</option>
+                                    <option value="2">2 - Ужасно</option>
+                                    <option value="1">1 - Невыносимо</option>
+                                </select>
+                            </div>
+                            <button onclick="addComment()">Добавить комментарий</button>
+                        </div>
+                        <div id="commentsList" class="comments-list"></div>
+                    </div>
+                    
+                    <button id="watchButton" class="watch-button">Смотреть</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Модальное окно для просмотра -->
+    <div id="watchModal" class="modal watch-modal">
+        <div class="modal-content watch-content">
+            <span class="close">&times;</span>
+            <div class="video-container">
+                <div class="quality-selector">
+                    <select id="videoQuality">
+                        <option value="1080p">1080p</option>
+                        <option value="720p">720p</option>
+                        <option value="480p">480p</option>
+                    </select>
+                </div>
+                <div id="videoPlayer"></div>
+            </div>
+        </div>
+    </div>
+
+    <script src="static/js/main.js"></script>
+</body>
+</html>
